@@ -15,6 +15,7 @@ Installing:
 ```R
 # install.packages("devtools")
 devtools::install_github("jlmelville/coil20")
+library(coil20)
 ```
 
 Using:

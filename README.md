@@ -2,7 +2,7 @@
 
 coil20 is an R package to download the processed images from the
 [COIL-20 database](http://www.cs.columbia.edu/CAVE/software/softlib/coil-20.php),
-using the [R png package](https://cran.r-project.org/web/packages/png/)
+using the [R png package](https://cran.r-project.org/web/packages/png/).
 
 The entire dataset is returned as a single data frame of 1440 observations 
 (20 objects with 72 poses each), and 16384 variables (The value of the 128 x 128 

@@ -8,7 +8,8 @@ Description: Code to download COIL-20 database of (processed) object images
     from http://www.cs.columbia.edu/CAVE/software/softlib/coil-20.php and create
     a data frame. Also, provides a function for viewing the images.
 License: GPL (>= 2)
-LazyData: TRUE
 Imports:
     png
+URL: http://github.com/jlmelville/coil20
+BugReports: http://github.com/jlmelville/coil20/issues
 RoxygenNote: 5.0.1

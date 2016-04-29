@@ -61,6 +61,7 @@ download_coil20 <- function(verbose = FALSE) {
   temp <- tempfile()
   if (verbose) {
     message("Downloading ", coil_20_proc_url, " to ", temp)
+    flush.console()
   }
   download.file(coil_20_proc_url, temp)
   read_png_zip(temp, verbose = verbose)
@@ -81,6 +82,7 @@ read_png_zip <- function(zipfile, verbose = FALSE) {
     file <- unzipped[i]
     if (verbose) {
       message("Reading ", file, " (", i, " of ", n, ")")
+      flush.console()
     }
     # format is obj<num>__<pose>.png
     name_and_pose <- Filter(nchar,

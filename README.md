@@ -38,5 +38,11 @@ text(pca$x[, 1:2], labels = coil20$Label, cex = 0.5,
 save(coil20, file = "coil20.Rda")
 ```
 
+### See also
+I have similar R packages for the [Simulation, Olivetti and Frey Faces](https://github.com/jlmelville/snedata) and
+[MNIST Digit](https://github.com/jlmelville/mnist) datasets.
+For doing an embedding, you could give 
+[sneer](https://github.com/jlmelville/sneer) a go.
+
 ## License
 [GPLv2 or later](https://www.gnu.org/licenses/gpl-2.0.txt).

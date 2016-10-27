@@ -61,9 +61,9 @@ download_coil20 <- function(verbose = FALSE) {
   temp <- tempfile()
   if (verbose) {
     message("Downloading ", coil_20_proc_url, " to ", temp)
-    flush.console()
+    utils::flush.console()
   }
-  download.file(coil_20_proc_url, temp)
+  utils::download.file(coil_20_proc_url, temp)
   read_png_zip(temp, verbose = verbose)
 }
 
@@ -74,7 +74,7 @@ read_png_zip <- function(zipfile, verbose = FALSE) {
     stop("Library 'png' needed for this function to work. Please install it.",
          call. = FALSE)
   }
-  unzipped <- unzip(zipfile)
+  unzipped <- utils::unzip(zipfile)
   n <- length(unzipped)
   df <- data.frame(matrix(nrow = n, ncol = 128 ^ 2))
   labels <- vector(mode = "character", length = n)
@@ -82,7 +82,7 @@ read_png_zip <- function(zipfile, verbose = FALSE) {
     file <- unzipped[i]
     if (verbose) {
       message("Reading ", file, " (", i, " of ", n, ")")
-      flush.console()
+      utils::flush.console()
     }
     # format is obj<num>__<pose>.png
     name_and_pose <- Filter(nchar,

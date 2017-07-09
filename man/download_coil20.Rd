@@ -43,4 +43,3 @@ This function requires the \code{png} package
 For more information see
  \url{http://www.cs.columbia.edu/CAVE/software/softlib/coil-20.php}.
 }
-

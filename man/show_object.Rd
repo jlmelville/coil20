@@ -24,4 +24,3 @@ Display a COIL-20 object pose.
 show_digit(coil20, object = 5, pose = 4)
 }
 }
-

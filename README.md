@@ -43,7 +43,7 @@ save(coil20, file = "coil20.Rda")
 ## See also
 
 * I have a similar R package if you would like [more datasets](https://github.com/jlmelville/snedata).
-* For doing an embedding, you could give [sneer](https://github.com/jlmelville/sneer) a go.
+* For dimensionality reduction, you could give [sneer](https://github.com/jlmelville/sneer) a go.
 
 ## License
 

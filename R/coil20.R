@@ -64,7 +64,9 @@ download_coil20 <- function(verbose = FALSE) {
     utils::flush.console()
   }
   utils::download.file(coil_20_proc_url, temp)
-  read_png_zip(temp, verbose = verbose)
+  df <- read_png_zip(temp, verbose = verbose)
+  unlink(temp)
+  df
 }
 
 # Reads the zipped directory of PNG files, adding each one to a data frame
@@ -73,6 +75,10 @@ read_png_zip <- function(zipfile, verbose = FALSE) {
   if (!requireNamespace("png", quietly = TRUE)) {
     stop("Library 'png' needed for this function to work. Please install it.",
          call. = FALSE)
+  }
+  if (verbose) {
+    message("Unzipping ", zipfile, " (this can take a LONG time!)")
+    utils::flush.console()
   }
   unzipped <- utils::unzip(zipfile)
   n <- length(unzipped)
@@ -86,13 +92,15 @@ read_png_zip <- function(zipfile, verbose = FALSE) {
     }
     # format is obj<num>__<pose>.png
     name_and_pose <- Filter(nchar,
-                           strsplit(basename(file), "\\D+", perl = TRUE)[[1]])
+                            strsplit(basename(file), "\\D+", perl = TRUE)[[1]])
     obj <- png::readPNG(file)
     df[i, ] <- as.vector(obj)
     labels[i] <- name_and_pose[1]
     row.names(df)[i] <- paste(name_and_pose, collapse = "_")
+    unlink(file)
   }
   names(df) <- paste0("px", 1:ncol(df))
   df$Label <- as.factor(labels)
+  unlink("coil-20-proc", recursive = TRUE)
   df
 }

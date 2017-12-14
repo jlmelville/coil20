@@ -11,14 +11,16 @@ pixels) The pixel values (reals in the range 0-1) are in columns with name
 column (which is stored as a factor) and the row names store the object id and 
 the pose id.
 
-Installing:
+## Installing
+
 ```R
 # install.packages("devtools")
 devtools::install_github("jlmelville/coil20")
 library(coil20)
 ```
 
-Using:
+## Examples
+
 ```R
 # fetch the data set from the COIL-20 website
 # takes a little while so you might want some indication of what's going on
@@ -38,11 +40,11 @@ text(pca$x[, 1:2], labels = coil20$Label, cex = 0.5,
 save(coil20, file = "coil20.Rda")
 ```
 
-### See also
-I have similar R packages for the [Simulation, Olivetti and Frey Faces](https://github.com/jlmelville/snedata) and
-[MNIST Digit](https://github.com/jlmelville/mnist) datasets.
-For doing an embedding, you could give 
-[sneer](https://github.com/jlmelville/sneer) a go.
+## See also
+
+* I have a similar R package if you would like [more datasets](https://github.com/jlmelville/snedata).
+* For dimensionality reduction, you could give [sneer](https://github.com/jlmelville/sneer) a go.
 
 ## License
+
 [GPLv2 or later](https://www.gnu.org/licenses/gpl-2.0.txt).

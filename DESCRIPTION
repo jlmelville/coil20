@@ -12,4 +12,5 @@ Imports:
     png
 URL: http://github.com/jlmelville/coil20
 BugReports: http://github.com/jlmelville/coil20/issues
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.1
+Encoding: UTF-8

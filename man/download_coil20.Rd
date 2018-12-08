@@ -6,10 +6,13 @@
 \format{A data frame with 16385 variables:
 
 \describe{
-\item{\code{px1}, \code{px2}, \code{px3} ... \code{px16384}}{Pixel values
-ranging from 0 to 1.}
+\item{\code{x1_y1}, \code{x1_y2}, ... \code{x1_128}, \code{x2_y1} ...
+  \code{x128_y128}}{Pixel values ranging from 0 to 1. The \code{x} index
+  increases from left to right, and the \code{y} index increases from top to
+  bottom, i.e. \code{x1_y1} is top left and \code{x128_y128} is the bottom
+  right.}
 \item{\code{Label}}{The id of the object represented by the image, in the
-range 1-20. Stored as a factor.}
+  range 1-20. Stored as a factor.}
 }
 
 The name of each row in the data frame is in the form "<obj>_<pose>",
@@ -17,9 +20,14 @@ where <obj> is the id of the object (numbered from 1 to 20) and <pose>
 is the pose id (numbered from 0 to 71). e.g. "5_4" is the fourth pose of the
 fifth object.}
 \usage{
-download_coil20(verbose = FALSE)
+download_coil20(file = tempfile(), cleanup = TRUE, verbose = FALSE)
 }
 \arguments{
+\item{file}{name of file to download to. Defaults to \code{\link{tempfile}}.}
+
+\item{cleanup}{if \code{TRUE}, then delete any downloaded files when
+finished.}
+
 \item{verbose}{If \code{TRUE}, then download progress will be logged as a
 message.}
 }

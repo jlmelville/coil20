@@ -2,25 +2,26 @@
 % Please edit documentation in R/coil20.R
 \name{show_object}
 \alias{show_object}
-\title{Visualize COIL-20 image.}
+\title{Visualize COIL-20 or COIL-100 image.}
 \usage{
 show_object(df, object, pose)
 }
 \arguments{
-\item{df}{Data frame containing COIL-20 objects.}
+\item{df}{Data frame containing tthe COIL-20 or COIL-100 dataframe.}
 
 \item{object}{Index of the object to display. Should be an integer between
 1 and 20.}
 
-\item{pose}{Index of the pose to display. Should be an integer between
-0 and 71.}
+\item{pose}{For COIL-20: the index of the pose to display. Should be an integer between
+0 and 71. For COIL-100: the angle of the pose. Should be an integer from 0
+to 355, in five degree increments.}
 }
 \description{
-Display a COIL-20 object pose.
+Display a COIL-20 or COIL-100 object pose.
 }
 \examples{
 \dontrun{
-# show the fourth pose of the fifth digit
+# show the fourth pose of the fifth digit of COIL-20
 show_digit(coil20, object = 5, pose = 4)
 }
 }

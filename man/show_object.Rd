@@ -7,7 +7,7 @@
 show_object(df, object, pose)
 }
 \arguments{
-\item{df}{Data frame containing tthe COIL-20 or COIL-100 dataframe.}
+\item{df}{Data frame containing the COIL-20 or COIL-100 dataframe.}
 
 \item{object}{Index of the object to display. Should be an integer between
 1 and 20.}

@@ -4,7 +4,7 @@
 #'
 #' Display a COIL-20 or COIL-100 object pose.
 #'
-#' @param df Data frame containing tthe COIL-20 or COIL-100 dataframe.
+#' @param df Data frame containing the COIL-20 or COIL-100 dataframe.
 #' @param object Index of the object to display. Should be an integer between
 #' 1 and 20.
 #' @param pose For COIL-20: the index of the pose to display. Should be an integer between

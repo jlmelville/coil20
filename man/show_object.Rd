@@ -21,7 +21,7 @@ Display a COIL-20 or COIL-100 object pose.
 }
 \examples{
 \dontrun{
-# show the fourth pose of the fifth digit of COIL-20
-show_digit(coil20, object = 5, pose = 4)
+# show the fourth pose of the fifth object of COIL-20
+show_object(coil20, object = 5, pose = 4)
 }
 }

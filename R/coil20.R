@@ -275,5 +275,5 @@ show_coil20 <- function(df, object, pose) {
 show_img <- function(img, x1 = 100, x2 = 250, y1 = 300, y2 = 450) {
   graphics::plot(c(x1, x2), c(y1, y2), type = "n", xlab = "", ylab = "",
                  axes = FALSE)
-  graphics::rasterImage(img, x1, y1, x2, y2)
+  graphics::rasterImage(img, x1, y1, x2, y2, interpolate = FALSE)
 }

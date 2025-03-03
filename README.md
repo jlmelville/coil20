@@ -1,9 +1,15 @@
 # coil20
 
 coil20 is an R package to download the processed images from the
-[COIL-20 database](http://www.cs.columbia.edu/CAVE/software/softlib/coil-20.php),
-and [COIL-100 database](http://www.cs.columbia.edu/CAVE/software/softlib/coil-100.php)
+[COIL-20 database](https://cave.cs.columbia.edu/repository/COIL-20),
+and [COIL-100 database](https://cave.cs.columbia.edu/repository/COIL-100)
 using the [R png package](https://cran.r-project.org/web/packages/png/).
+
+*March 2nd 2025* The URLs for COIL-20 and COIL-100 changed; the package has 
+been updated to reflect this. Also, some horrifically inefficient dataframe
+manipulation has been replaced, meaning downloading and processing the data is
+less miserably slow: processing COIL-100 takes a couple of minutes rather than
+a couple of hours (oops).
 
 *December 7th 2018* This package has now gained the ability to download the
 COIL-100 database. Plus, it's better about where it extracts the zip file and
@@ -60,13 +66,14 @@ text(pca$x[, 1:2], labels = coil20$Label, cex = 0.5,
 save(coil20, file = "coil20.Rda")
 
 # Fetch COIL-100
-# Takes a long time to process all 7,200 images (a couple of hours)
+# Takes a long time to process all 7,200 images
 coil100 <- download_coil100(verbose = TRUE)
 ```
 
 ## See also
 
-* I have a similar R package if you would like [more datasets](https://github.com/jlmelville/snedata).
+* I have a similar R package if you would like
+[more datasets](https://github.com/jlmelville/snedata).
 
 ## License
 

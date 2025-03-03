@@ -1,7 +1,7 @@
 Package: coil20
 Type: Package
 Title: Code to Download the COIL 20 Database of Object Images
-Version: 0.0.0.9000
+Version: 0.0.0.9001
 Authors@R: person("James", "Melville", email = "jlmelville@gmail.com",
     role = c("aut", "cre"))
 Description: Code to download COIL-20 database of (processed) object images

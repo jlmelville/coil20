@@ -53,7 +53,7 @@ show_object <- function(df, object, pose) {
 #'
 #' @seealso
 #' For more information see
-#'  \url{http://www.cs.columbia.edu/CAVE/software/softlib/coil-20.php}.
+#'  \url{https://cave.cs.columbia.edu/repository/COIL-20}.
 #'
 #' @note
 #' This function requires the \code{png} package
@@ -67,9 +67,6 @@ show_object <- function(df, object, pose) {
 #' @export
 download_coil20 <- function(file = tempfile(), cleanup = TRUE,
                             verbose = FALSE) {
-  base_coil_url <-
-    "http://www.cs.columbia.edu/CAVE/databases/SLAM_coil-20_coil-100"
-
   coil_20_url <- paste(base_coil_url(), "coil-20", "coil-20-proc.zip",
                         sep = "/")
   coil_20 <- download_coil(url = coil_20_url, file = file, cleanup = cleanup,
@@ -120,7 +117,7 @@ download_coil20 <- function(file = tempfile(), cleanup = TRUE,
 #'
 #' @seealso
 #' For more information see
-#'  \url{http://www.cs.columbia.edu/CAVE/software/softlib/coil-100.php}.
+#'  \url{https://cave.cs.columbia.edu/repository/COIL-100}.
 #'
 #' @note
 #' This function requires the \code{png} package
@@ -152,7 +149,7 @@ download_coil100 <- function(file = tempfile(), cleanup = TRUE,
 # File downloading/reading ------------------------------------------------
 
 base_coil_url <- function() {
-  "http://www.cs.columbia.edu/CAVE/databases/SLAM_coil-20_coil-100"
+  "http://cave.cs.columbia.edu/old/databases/SLAM_coil-20_coil-100"
 }
 
 # download one of the COIL datasets and extract it to a data frame
@@ -202,7 +199,7 @@ read_png_zip <- function(zipfile, cleanup = FALSE, verbose = FALSE) {
     return(NULL)
   }
 
-  df <- read_png_dir(dir = dir, verbose = verbose)
+  df <- read_png_dir(dir, verbose = verbose)
 
   if (cleanup) {
     if (verbose) {
@@ -218,58 +215,66 @@ read_png_dir <- function(dir, verbose = FALSE) {
   files <- list.files(dir, full.names = TRUE, pattern = "\\.png$")
   n <- length(files)
 
-  df <- NULL
-  labels <- vector(mode = "character", length = n)
+  # Pre-check to find the image size (width * height * channels)
+  first_obj <- png::readPNG(files[1])
+  npx <- length(first_obj)
 
-  for (i in seq_along(files)) {
-    file <- files[[i]]
-    if (verbose) {
-      message("Reading ", file, " (", i, " of ", n, ")")
+  # Pre-allocate a numeric matrix and vectors for labels/row names
+  m <- matrix(0, nrow = n, ncol = npx)
+  label_vec <- character(n)
+  rowname_vec <- character(n)
+
+  for (i in seq_len(n)) {
+    f <- files[i]
+    if (verbose && i %% 100 == 0) {
+      message("Reading file ", i, " of ", n)
       utils::flush.console()
     }
 
     # format is obj<num>__<pose>.png
-    name_and_pose <- Filter(nchar,
-                            strsplit(basename(file), "\\D+", perl = TRUE)[[1]])
-    obj <- png::readPNG(file)
-    npx <- prod(dim(obj))
+    # Example: "obj5__10.png" => c("5","10")
+    name_and_pose <- Filter(nchar, strsplit(basename(f), "\\D+", perl = TRUE)[[1]])
 
-    if (is.null(df)) {
-      df <- data.frame(matrix(nrow = n, ncol = npx))
+    # Read PNG and convert to a vector
+    img_data <- png::readPNG(f)
+    if (length(img_data) != npx) {
+      stop(
+        "Image dimensions differ from the first file. ",
+        "All images must have the same shape."
+      )
     }
-    else {
-      if (npx != ncol(df)) {
-        stop("Images are of different sizes")
-      }
-    }
-    df[i, ] <- as.vector(obj)
-    labels[i] <- name_and_pose[1]
-    row.names(df)[i] <- paste(name_and_pose, collapse = "_")
+    m[i, ] <- as.vector(img_data)
+    label_vec[i] <- name_and_pose[1]
+    rowname_vec[i] <- paste(name_and_pose, collapse = "_")
   }
-  names(df) <- paste0("px", 1:ncol(df))
-  df$Label <- as.factor(labels)
+  df <- data.frame(m, Label = factor(as.integer(label_vec), levels = sort(unique(
+    as.integer(label_vec)
+  ))))
+  rownames(df) <- rowname_vec
+  colnames(df)[1:npx] <- paste0("px", seq_len(npx))
   df
 }
-
 
 # Images ------------------------------------------------------------------
 
 show_coil100 <- function(df, object, pose) {
   name <- paste(object, pose, sep = "_")
-
-  r <- as.matrix(df[name, 1:(ncol(df) - 1)])
-  dim(r) <- c(128, 128, 3)
-  img <- png::readPNG(png::writePNG(r))
-  show_img(img)
+  if (!(name %in% rownames(df))) {
+    stop("No row with object_pose: ", name)
+  }
+  img_data <- as.matrix(df[name, -ncol(df)])
+  dim(img_data) <- c(128, 128, 3)
+  show_img(img_data)
 }
 
 show_coil20 <- function(df, object, pose) {
   name <- paste(object, pose, sep = "_")
-
-  r <- as.matrix(df[name, 1:(ncol(df) - 1)])
-  dim(r) <- c(128, 128)
-  img <- png::readPNG(png::writePNG(r))
-  show_img(img)
+  if (!(name %in% rownames(df))) {
+    stop("No row with object_pose: ", name)
+  }
+  img_data <- as.matrix(df[name, -ncol(df)])
+  dim(img_data) <- c(128, 128)
+  show_img(img_data)
 }
 
 show_img <- function(img, x1 = 100, x2 = 250, y1 = 300, y2 = 450) {

@@ -3,51 +3,56 @@
 \name{download_coil20}
 \alias{download_coil20}
 \title{Download COIL-20}
-\format{A data frame with 16385 variables:
-
-\describe{
-\item{\code{x1_y1}, \code{x1_y2}, ... \code{x1_128}, \code{x2_y1} ...
-  \code{x128_y128}}{Pixel values ranging from 0 to 1. The \code{x} index
-  increases from left to right, and the \code{y} index increases from top to
-  bottom, i.e. \code{x1_y1} is top left and \code{x128_y128} is the bottom
-  right.}
-\item{\code{Label}}{The id of the object represented by the image, in the
-  range 1-20. Stored as a factor.}
+\format{
+If \code{as = "data.frame"}, the default, a data frame with 16,385
+variables:
+\itemize{
+\item \code{x1_y1}, \code{x1_y2}, ... \code{x1_y128}, \code{x2_y1}, ... \code{x128_y128}: Pixel values
+ranging from 0 to 1. The \code{x} index increases from left to right, and the
+\code{y} index increases from top to bottom, so \code{x1_y1} is top left and
+\code{x128_y128} is bottom right.
+\item \code{Label}: The id of the object represented by the image, in the range 1 to
+20. Stored as a factor.
 }
 
-The name of each row in the data frame is in the form "<obj>_<pose>",
-where <obj> is the id of the object (numbered from 1 to 20) and <pose>
-is the pose id (numbered from 0 to 71). e.g. "5_4" is the fourth pose of the
-fifth object.}
+The name of each row is \code{"<object>_<pose>"}, where \verb{<object>} is the object
+id and \verb{<pose>} is the pose id, from 0 to 71. For example, \code{"5_4"} is the
+fourth pose of the fifth object.
+
+For more information see \url{https://cave.cs.columbia.edu/repository/COIL-20}.
+}
 \usage{
-download_coil20(file = tempfile(), cleanup = TRUE, verbose = FALSE)
+download_coil20(
+  file = NULL,
+  cleanup = TRUE,
+  verbose = FALSE,
+  as = c("data.frame", "matrix")
+)
 }
 \arguments{
-\item{file}{name of file to download to. Defaults to \code{\link{tempfile}}.}
+\item{file}{File path to download the zip archive to. If \code{NULL}, a file in a
+temporary work directory is used.}
 
-\item{cleanup}{if \code{TRUE}, then delete any downloaded files when
-finished.}
+\item{cleanup}{If \code{TRUE}, delete temporary download and extraction files
+before returning. If \code{file} is supplied, only that file and the dedicated
+extraction directory are removed.}
 
-\item{verbose}{If \code{TRUE}, then download progress will be logged as a
-message.}
+\item{verbose}{If \code{TRUE}, log download and extraction progress.}
+
+\item{as}{Return format. Use \code{"data.frame"} for the original wide data frame
+shape, or \code{"matrix"} for a list with \code{data}, \code{labels}, \code{poses}, and \code{ids}.}
 }
 \value{
-Data frame containing the COIL-20 database.
+If \code{as = "data.frame"}, a data frame containing the COIL-20 dataset.
+If \code{as = "matrix"}, a list containing a numeric matrix with one image per
+row, factor labels, integer poses, and row ids.
 }
 \description{
-Download processed COIL-20 database of object images.
+Download the processed COIL-20 database of object images.
 }
 \details{
 Downloads and expands the zip file of the processed COIL-20 database of
-object images and converts them to a data frame. There are 20 objects, each
-represented by 72 poses, in a grayscale PNG format. Each image has a
-resolution of 128 x 128.
-}
-\note{
-This function requires the \code{png} package
-\url{https://cran.r-project.org/web/packages/png/} to be installed.
-}
-\seealso{
-For more information see
- \url{http://www.cs.columbia.edu/CAVE/software/softlib/coil-20.php}.
+object images and converts the PNG files to a data frame or matrix-list
+result. There are 20 objects, each represented by 72 poses, in grayscale PNG
+format. Each image has a resolution of 128 x 128.
 }

@@ -2,26 +2,33 @@
 % Please edit documentation in R/coil20.R
 \name{show_object}
 \alias{show_object}
-\title{Visualize COIL-20 or COIL-100 image.}
+\title{Visualize a COIL-20 or COIL-100 image}
 \usage{
 show_object(df, object, pose)
 }
 \arguments{
-\item{df}{Data frame containing the COIL-20 or COIL-100 dataframe.}
+\item{df}{Data frame returned by \code{\link[=download_coil20]{download_coil20()}} or \code{\link[=download_coil100]{download_coil100()}}.
+Matrix-list results returned with \code{as = "matrix"} are also supported.}
 
-\item{object}{Index of the object to display. Should be an integer between
-1 and 20.}
+\item{object}{Object id to display. COIL-20 contains objects 1 to 20 and
+COIL-100 contains objects 1 to 100.}
 
-\item{pose}{For COIL-20: the index of the pose to display. Should be an integer between
-0 and 71. For COIL-100: the angle of the pose. Should be an integer from 0
-to 355, in five degree increments.}
+\item{pose}{For COIL-20, the pose id to display, from 0 to 71. For COIL-100,
+the viewing angle, from 0 to 355 in five-degree increments.}
 }
 \description{
 Display a COIL-20 or COIL-100 object pose.
 }
 \examples{
 \dontrun{
+coil20 <- download_coil20()
+
 # show the fourth pose of the fifth object of COIL-20
 show_object(coil20, object = 5, pose = 4)
+
+coil100 <- download_coil100()
+
+# COIL-100 uses viewing angles in degrees, in five-degree increments
+show_object(coil100, object = 5, pose = 150)
 }
 }

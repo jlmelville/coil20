@@ -1,16 +1,20 @@
-Package: coil20
 Type: Package
-Title: Code to Download the COIL 20 Database of Object Images
-Version: 0.0.0.9001
+Package: coil20
+Title: Download COIL-20 and COIL-100 Object Image Datasets
+Version: 0.0.0.9002
 Authors@R: person("James", "Melville", email = "jlmelville@gmail.com",
     role = c("aut", "cre"))
-Description: Code to download COIL-20 database of (processed) object images
-    from http://www.cs.columbia.edu/CAVE/software/softlib/coil-20.php and create
-    a data frame. Also, provides a function for viewing the images.
+Description: Download the processed COIL-20 and COIL-100 object image
+    datasets from the Columbia University Image Library and convert them to
+    row-based R objects. Also provides a helper for viewing individual images.
 License: GPL (>= 2)
 Imports:
     png
-URL: http://github.com/jlmelville/coil20
-BugReports: http://github.com/jlmelville/coil20/issues
-RoxygenNote: 6.1.1
+Suggests:
+    testthat
+URL: https://github.com/jlmelville/coil20
+BugReports: https://github.com/jlmelville/coil20/issues
 Encoding: UTF-8
+Config/testthat/edition: 3
+Config/roxygen2/version: 8.0.0
+Roxygen: list(markdown = TRUE)

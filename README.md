@@ -39,8 +39,9 @@ coil20 <- download_coil20(verbose = TRUE)
 
 show_object(coil20, object = 4, pose = 0)
 
-# To avoid a very wide data frame, return the pixels as a matrix.
-coil20_matrix <- download_coil20(as = "matrix")
+# To avoid a very wide data frame, return a list containing a pixel matrix.
+coil20_list <- download_coil20(as = "matrix")
+coil20_pixels <- coil20_list$data
 
 pca <- prcomp(coil20[, 1:(128 ^ 2)], retx = TRUE)
 plot(pca$x[, 1:2], type = "n")

@@ -1,5 +1,7 @@
 # coil20
 
+*July 16 2026*: This project has been archived. All functionality has been rolled into the [snedata](https://github.com/jlmelville/snedata) repo.
+
 Download helpers for the
 [COIL-20](https://cave.cs.columbia.edu/repository/COIL-20) and
 [COIL-100](https://cave.cs.columbia.edu/repository/COIL-100) object image
